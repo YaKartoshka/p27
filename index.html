@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Аниме сайт с видео</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background-color: #ff4500;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      margin-top: 30px;
+    }
+    button:hover {
+      background-color: #e03e00;
+    }
+    .hidden {
+      display: none;
+    }
+    .jutsu-list {
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    .jutsu-list h2 {
+      margin-top: 0;
+    }
+    .jutsu-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .jutsu-list li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #ff4500;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+    /* Модальное окно для просмотра картинки */
+    #modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    #modal.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #ff4500;
+    }
+    #modal span {
+      position: fixed;
+      top: 20px; right: 30px;
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    /* Видео */
+    .video-container {
+      max-width: 720px;
+      margin: 30px auto;
+      box-shadow: 0 0 15px #ff4500;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 405px; /* 16:9 */
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>Мир Аниме и Джутсу</header>
+
+<main>
+  <!-- Главная страница -->
+  <section id="home">
+    <h1>Добро пожаловать на сайт про Аниме!</h1>
+    <p>Здесь вы можете узнать о разных джутсу, посмотреть картинки и видео из аниме.</p>
+    <button id="goToJutsu">Перейти к Джутсу</button>
+  </section>
+
+  <!-- Страница с Джутсу -->
+  <section id="jutsu" class="hidden">
+    <h1>Джутсу в аниме</h1>
+    <div class="jutsu-list">
+      <h2>Популярные техники:</h2>
+      <ul>
+        <li>Расенган</li>
+        <li>Чидори</li>
+        <li>Каге Буншин но Дзюцу (Техника теневого клона)</li>
+        <li>Сусаноо</li>
+        <li>Амэ но Хагоромо</li>
+      </ul>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <img src="https://upload.wikimedia.org/wikipedia/ru/8/8f/Naruto_Rasengan.png" alt="Расенган" title="Расенган" />
+      <img src="https://static.wikia.nocookie.net/naruto/images/e/e1/Chidori.png" alt="Чидори" title="Чидори" />
+      <img src="https://static.wikia.nocookie.net/naruto/images/7/7a/Kage_Bunshin_no_Jutsu.png" alt="Техника теневого клона" title="Техника теневого клона" />
+      <img src="https://static.wikia.nocookie.net/naruto/images/3/3e/Susanoo.png" alt="Сусаноо" title="Сусаноо" />
+      <img src="https://static.wikia.nocookie.net/naruto/images/3/37/Hagoromo.png" alt="Амэ но Хагоромо" title="Амэ но Хагоромо" />
+    </div>
+
+    <!-- Видео из YouTube -->
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/UH_J0ZTbzlg" title="Наруто Расенган Видео" allowfullscreen></iframe>
+    </div>
+
+    <button id="goHome" style="margin-top: 40px;">Назад на главную</button>
+  </section>
+</main>
+
+<!-- Модальное окно для увеличенного просмотра картинки -->
+<div id="modal">
+  <span id="closeModal">&times;</span>
+  <img src="" alt="Увеличенное изображение" />
+</div>
+
+<script>
+  const homeSection = document.getElementById('home');
+  const jutsuSection = document.getElementById('jutsu');
+  const goToJutsuBtn = document.getElementById('goToJutsu');
+  const goHomeBtn = document.getElementById('goHome');
+
+  goToJutsuBtn.addEventListener('click', () => {
+    homeSection.classList.add('hidden');
+    jutsuSection.classList.remove('hidden');
+  });
+
+  goHomeBtn.addEventListener('click', () => {
+    jutsuSection.classList.add('hidden');
+    homeSection.classList.remove('hidden');
+  });
+
+  // Модальное окно для картинок
+  const gallery = document.getElementById('gallery');
+  const modal = document.getElementById('modal');
+  const modalImg = modal.querySelector('img');
+  const closeModal = document.getElementById('closeModal');
+
+  gallery.addEventListener('click', e => {
+    if (e.target.tagName === 'IMG') {
+      modalImg.src = e.target.src;
+      modal.classList.add('visible');
+    }
+  });
+
+  closeModal.addEventListener('click', () => {
+    modal.classList.remove('visible');
+    modalImg.src = '';
+  });
+
+  // Закрыть модал при клике вне картинки
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      modal.classList.remove('visible');
+      modalImg.src = '';
+    }
+  });
+</script>
+
+</body>
+</html>

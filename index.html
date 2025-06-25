@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>2D Шутер</title>
+<body>
+  <h1>2D Шутер</h1>
+  <canvas id="gameCanvas"></canvas>
+  
+  <div id="controls">
+    <button id="upBtn">▲</button>
+    <button id="downBtn">▼</button>
+    <button id="shootBtn">●</button>
+  </div>
+
   <style>
-    canvas {
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    #gameCanvas {
       background: #000;
       display: block;
       margin: 0 auto;
-      border: 3px solid #fff;
+      max-width: 100vw;
+      height: 60vh;
     }
-    body {
-      background: #111;
+    #controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    #controls button {
+      font-size: 2rem;
+      padding: 15px 25px;
+      border-radius: 10px;
+      background: #444;
       color: white;
-      text-align: center;
-      font-family: sans-serif;
+      border: none;
+      user-select: none;
+    }
+    #controls button:active {
+      background: #888;
     }
   </style>
-</head>
-<body>
-  <h1>2D Шутер</h1>
-  <p>Управление: ↑ ↓ для движения, пробел — стрелять, R — перезапуск</p>
-  <canvas id="gameCanvas" width="800" height="500"></canvas>
-  <audio id="shootSound" src="shoot.mp3"></audio>
-  <audio id="hitSound" src="hit.mp3"></audio>
-  <script src="scripts.js"></script>
+
+  <script src="game.js"></script>
 </body>
-</html>
